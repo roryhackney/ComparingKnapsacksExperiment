@@ -33,7 +33,7 @@ public class FileCreation {
     public static boolean createFile(int capacity, int knapsackNum) {
         if (knapsackNum < 4 || capacity < 1) return false;
         System.out.println();
-        File file = new File("src/KnapsackItems/inputs" + knapsackNum + ".txt");
+        File file = new File("src/KnapsackItems/inputs" + knapsackNum + ".csv");
 //        System.out.println("---" + file.getAbsolutePath());
         try {
             //delete if already exists
