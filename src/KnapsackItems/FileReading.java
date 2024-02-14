@@ -32,7 +32,7 @@ public class FileReading {
         } catch (Exception e) {
             throw new IllegalArgumentException("File could not be read");
         }
-        Item[] items = new Item[];
+        Item[] items = new Item[values.length];
         for (int index = 0; index < values.length; index++) {
             items[index] = new Item(Integer.parseInt(values[index]), Integer.parseInt(weights[index]));
         }
