@@ -1,28 +1,32 @@
 package KnapsackItems;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class FileReading {
-    public Item[][] readAllFiles() {
-        Item[][] knapsacks = new Item[][];
+    private FileReading() {}
+
+    public static Item[][] readAllFiles() {
+        Item[][] knapsacks = new Item[6][];
         knapsacks[0] = readFile("inputs.csv");
-        for (int index = 1; index <= 6; index++) {
-            knapsacks[index] = readFile("inputs" + index + ".csv");
+        for (int fileNum = 2; fileNum <= 6; fileNum++) {
+            knapsacks[fileNum - 1] = readFile("inputs" + fileNum + ".csv");
         }
         return knapsacks;
     }
     /**
      * Reads the given file and returns a Knapsack that can be used for the Knapsack algorithms
-     * @param filename the name of the file eg inputs4.csv. File must exist and be readable and be in KnapsackItems.
+     * @param filename the name of the file, e.g. inputs4.csv. File must exist and be readable and be in KnapsackItems/
      * @return a Knapsack which contains the id, capacity, and an array of Items
      */
-    public Item[] readFile(String filename) {
+    public static Item[] readFile(String filename) {
         File file = new File("src/KnapsackItems/" + filename);
         String[] values;
         String[] weights;
         try {
             Scanner scanner = new Scanner(file);
+            scanner.useDelimiter(",");
             int knapsackNum = scanner.nextInt();
             int knapsackCap = scanner.nextInt();
             scanner.nextLine();
@@ -30,7 +34,7 @@ public class FileReading {
             weights = scanner.nextLine().strip().split(",");
             scanner.close();
         } catch (Exception e) {
-            throw new IllegalArgumentException("File could not be read");
+            throw new IllegalArgumentException("File could not be read: " + filename + e);
         }
         Item[] items = new Item[values.length];
         for (int index = 0; index < values.length; index++) {
