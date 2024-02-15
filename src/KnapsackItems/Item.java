@@ -5,23 +5,27 @@ package KnapsackItems;
  * @author Rory Hackney
  */
 public class Item {
-    /** Weight of the item which limits whether it can be placed in a Knapsack */
-    private int weight;
     /** Benefit of the item which determines the value added if it's placed in a Knapsack */
     private int benefit;
+    /** Weight of the item which limits whether it can be placed in a Knapsack */
+    private int weight;
 
     /**
      * Creates an Item
-     * @param weight weight of the Item; must be at least 1
      * @param benefit benefit of the Item; must be at least 1
+     * @param weight weight of the Item; must be at least 1
      */
-    public Item(int weight, int benefit) {
-        if (weight < 1) throw new IllegalArgumentException("weight must be at least 1");
+    public Item(int benefit, int weight) {
         if (benefit < 1) throw new IllegalArgumentException("benefit must be at least 1");
-        this.weight = weight;
+        if (weight < 1) throw new IllegalArgumentException("weight must be at least 1");
         this.benefit = benefit;
+        this.weight = weight;
     }
 
-    public int getWeight() {return weight;}
     public int getBenefit() {return benefit;}
+    public int getWeight() {return weight;}
+
+    public String toString() {
+        return String.format("(Benefit: %d, Weight: %d)", benefit, weight);
+    }
 }

@@ -46,6 +46,7 @@ public class FileCreation {
             d.print(knapsackNum);
             d.print(',');
             d.print(capacity);
+            d.print(',');
             d.print('\n');
             //values line, then weights line
             Random r = new Random();
