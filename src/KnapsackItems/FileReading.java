@@ -7,8 +7,12 @@ import java.util.Scanner;
 public class FileReading {
     private FileReading() {}
 
-    public static Item[][] readAllFiles() {
-        Item[][] knapsacks = new Item[6][];
+//    public static void main(String[] args) {
+//        System.out.println(Arrays.toString(readAllFiles()));
+//    }
+
+    public static Knapsack[] readAllFiles() {
+        Knapsack[] knapsacks = new Knapsack[6];
         knapsacks[0] = readFile("inputs.csv");
         for (int fileNum = 2; fileNum <= 6; fileNum++) {
             knapsacks[fileNum - 1] = readFile("inputs" + fileNum + ".csv");
@@ -20,15 +24,17 @@ public class FileReading {
      * @param filename the name of the file, e.g. inputs4.csv. File must exist and be readable and be in KnapsackItems/
      * @return a Knapsack which contains the id, capacity, and an array of Items
      */
-    public static Item[] readFile(String filename) {
+    public static Knapsack readFile(String filename) {
         File file = new File("src/KnapsackItems/" + filename);
         String[] values;
         String[] weights;
+        int knapsackNum;
+        int knapsackCap;
         try {
             Scanner scanner = new Scanner(file);
             scanner.useDelimiter(",");
-            int knapsackNum = scanner.nextInt();
-            int knapsackCap = scanner.nextInt();
+            knapsackNum = scanner.nextInt();
+            knapsackCap = scanner.nextInt();
             scanner.nextLine();
             values = scanner.nextLine().strip().split(",");
             weights = scanner.nextLine().strip().split(",");
@@ -40,6 +46,6 @@ public class FileReading {
         for (int index = 0; index < values.length; index++) {
             items[index] = new Item(Integer.parseInt(values[index]), Integer.parseInt(weights[index]));
         }
-        return items;
+        return new Knapsack(knapsackNum, knapsackCap, items);
     }
 }
