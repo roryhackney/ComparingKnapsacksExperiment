@@ -7,7 +7,10 @@ package Knapsack01;
  */
 public class BruteForce {
 
-    public BruteForce(int[] array){
-
+    public BruteForce(Knapsack knapsack){
+        Item[] items = knapsack.getItems();
+        for(int index = 0; index < items.length; index++) {
+            items[index]
+        }
     }
 }
