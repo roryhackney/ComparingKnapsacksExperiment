@@ -28,4 +28,8 @@ public class Item {
     public String toString() {
         return String.format("(Benefit: %d, Weight: %d)", benefit, weight);
     }
+
+    public double getValue() {
+        return (double) benefit/weight;
+    }
 }
