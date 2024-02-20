@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class Greedy {
     /**
-     * Method for Greedy Algorithm
+     * Constructor for Greedy Algorithm
      * @param knapsack Desired Knapsack to run algorithm through
      */
     public Greedy(Knapsack knapsack) {
