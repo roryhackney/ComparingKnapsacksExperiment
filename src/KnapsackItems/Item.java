@@ -31,8 +31,8 @@ public class Item implements Comparable<Item> { // Added comparable needed for G
 
     // Added - Comparison for benefit and weight ratio used in Greedy only
     public int compareTo(Item other) {
-        double ratioThis = this.benefit/ this.weight;
-        double ratioOther = other.benefit/ other.weight;
+        double ratioThis = (double) this.benefit / this.weight;
+        double ratioOther = (double) other.benefit / other.weight;
 
         return Double.compare(ratioOther, ratioThis);
     }
