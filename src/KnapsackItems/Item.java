@@ -29,7 +29,6 @@ public class Item {
         return String.format("(Benefit: %d, Weight: %d)", benefit, weight);
     }
 
-    public double getValue() {
-        return (double) benefit/weight;
+
     }
-}
+
