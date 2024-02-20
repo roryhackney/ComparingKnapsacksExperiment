@@ -5,49 +5,50 @@ import KnapsackItems.Knapsack;
 import java.util.Arrays;
 
 /**
- * Class implementation on Greedy algorithm for fractional Knapsack
- */
+* Class implementation of greedy fractional knapsack algorithm
+*/
 
 // TODO: Remove knapsack class and item class, getting an error when implementing charts.
-//  Looks like algo is created in Constructor, no separate function was created.
+// Looks like algo is created in Constructor, no seperate function was created.
 public class Greedy {
+  
+  private final double value;
+	
+  /**
+	* @param knapsack The knapsack object representing items
+	*/
+	public static double solveFractionalKnapsack(Knapsack knapsack) {
+		Item[] items = knapsack.getItems();
+		int capacity = knapsack.getCapacity();
 
-    private final double value;
-    /**
-     * @param knapsack The knapsack object representing items
-     */
-    public Greedy(Knapsack knapsack) {
-        Item[] items = knapsack.getItems();
-        double capacity = knapsack.getCapacity();
+		Arrays.sort(items);
 
-        Arrays.sort(items);
+		//Initialize total value to zero
+		double totalBenefit = 0.0;
 
-        //Initialize total value to zero
-        double totalValue = 0.0;
+		//Iterate through the sorted items
+		for (Item item : items) {
+			if (capacity <= 0) {
+				break;
+			}
 
-        //Iterate through  the sorted items
-        for (Item item : items) {
-            if (capacity <= 0) {
-                break;
-            }
+			//Adding whole item to knapsack
+			if (item.getWeight() <= capacity) {
+				totalBenefit += item.getBenefit();
+				capacity -= item.getWeight();
+			} else {
+				//Take a fraction of the item to fill remaining capacity
+				double fraction = (double) capacity / item.getWeight();
+				totalBenefit += fraction * item.getBenefit();
+				capacity = 0;
+				break;
+			}
+		}
+		this.value = totalBenefit;
+		return totalBenefit;
+	}
 
-            //Adding whole item to knapsack
-            if (item.getWeight() <= capacity) {
-                totalValue += item.getBenefit();
-                capacity -= item.getWeight();
-            } else {
-                //Take a fraction of the item to fill remaining capacity
-                double fraction = capacity / item.getWeight();
-                totalValue += fraction * item.getBenefit();
-                capacity = 0;
-                break;
-            }
-        }
-        this.value = totalValue;
-    }
-
-    public double getValue() {
-        return value;
-    }
-
+	public double getValue() {
+		return value;
+	}
 }

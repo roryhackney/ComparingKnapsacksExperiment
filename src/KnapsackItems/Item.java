@@ -33,7 +33,6 @@ public class Item implements Comparable<Item> { // Added comparable needed for G
     public int compareTo(Item other) {
         double ratioThis = (double) this.benefit / this.weight;
         double ratioOther = (double) other.benefit / other.weight;
-
         return Double.compare(ratioOther, ratioThis);
     }
 }
