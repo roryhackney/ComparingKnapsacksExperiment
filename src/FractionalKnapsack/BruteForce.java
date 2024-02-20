@@ -4,20 +4,21 @@ import KnapsackItems.Item;
 import KnapsackItems.Knapsack;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Brute force solution to the Fractional Knapsack problem: O(2^n)
  * @author Rory Hackney
  */
 public class BruteForce {
-    public static void main(String[] args) {
-//        System.out.println(
-        displayWeightAndBenefit(
-                new Knapsack(1, 5, new Item[]{new Item(3, 3), new Item(2, 2), new Item(1, 1)}),
-                2, 0, 0, new ArrayList<>());
-        //);
-    }
+//    public static void main(String[] args) {
+////        displayWeightAndBenefit(
+////                new Knapsack(1, 5, new Item[]{new Item(3, 3), new Item(2, 2), new Item(1, 1)}),
+////                2, 0, 0, new ArrayList<>());
+//
+//        Knapsack bag = new Knapsack(1, 5, new Item[]{new Item(3, 3), new Item(2, 2), new Item(1, 1)});
+//        int res = solveTheProblem(bag);
+//        System.out.println(res);
+//    }
 
     //need: items (weight, benefit, item number)
     //I think recursively split between (include this) and (don't include this)
@@ -42,7 +43,7 @@ public class BruteForce {
         }
     }
 
-    public static int testTotalBenefit(Item[] items, int currentIndex, int sum) {
+    public static double testTotalBenefit(Item[] items, int currentIndex, double sum) {
         if (currentIndex < 0) {
             return sum;
         }
@@ -50,14 +51,14 @@ public class BruteForce {
                 testTotalBenefit(items, currentIndex - 1, sum + items[currentIndex].getBenefit()));
     }
 
-    public static int testTotalBenefit(Knapsack sack, int currentIndex, int sum) {
+    public static double testTotalBenefit(Knapsack sack, int currentIndex, double sum) {
         if (currentIndex < 0) return sum;
         return Math.max(testTotalBenefit(sack, currentIndex - 1, sum),
                 testTotalBenefit(sack, currentIndex - 1, sum + sack.getItems()[currentIndex].getBenefit()));
     }
 
     //problem: we are passing the same arraylist around, so it is adding the same item multiple times
-    public static void displayWeightAndBenefit(Knapsack sack, int currentIndex, int sum, int weight, ArrayList<Item> items) {
+    public static void displayWeightAndBenefit(Knapsack sack, int currentIndex, double sum, double weight, ArrayList<Item> items) {
         if (currentIndex < 0) {
             System.out.println("Items: " + items);
             System.out.println("Profit: " + sum);
@@ -70,7 +71,7 @@ public class BruteForce {
                         sum + sack.getItems()[currentIndex].getBenefit(),
                         weight + sack.getItems()[currentIndex].getWeight(), (ArrayList<Item>) items.clone()); //do add
             } else {
-                int diff = sack.getCapacity() - weight; //have space for 2 weight
+                double diff = sack.getCapacity() - weight; //have space for 2 weight
                 if (diff > 0) { // if there is room for stuff
                     double ratio = diff / (double) sack.getItems()[currentIndex].getWeight();
                     double profit = ratio * sack.getItems()[currentIndex].getBenefit(); //
@@ -83,24 +84,50 @@ public class BruteForce {
         }
     }
 
+    private double maxBenefit;
+    private String finalItems;
 
-
-    public int solveTheProblem(Knapsack sack) {
-        System.out.println("For knapsack #" + sack.getId() + " with a capacity of " + sack.getCapacity());
-        System.out.println("Potential items: " + Arrays.toString(sack.getItems()));
-
-        System.out.println("The max possible profit is ");
-        System.out.println("Added items: " + "including " + "units of item " + "with a value of ");
-
-        int maxProfit = solveTheProblem(sack, items.length - 1, 0, 0, "");
+    public BruteForce() {
+        maxBenefit = 0;
+        finalItems = "";
     }
 
-    private int solveTheProblem(Knapsack sack, int currentItem, int profit, int weight, String display) {
-        if (currentItem <= 0 || sack.getCapacity() <= weight) {
+    public double getMaxBenefit() {return maxBenefit;}
 
+    public String getFinalItems() {return finalItems;}
+
+    //put it all together
+    //should return 5 with the given main
+    //should somehow return the list of items added, the profit (a String?)
+    //Greedy just returns the benefit so idk
+    //output (in Main.main)
+    //Knapsack #1, Max capacity X
+    //Potential Items
+    //Added Items x, and x/x of item x, for a total profit of x
+    public double solveTheProblem(Knapsack sack) {
+        double maxProfit = solveTheProblem(sack, sack.getItems().length - 1, 0, 0, "");
+        return maxProfit;
+    }
+
+    private double solveTheProblem(Knapsack sack, int currentIndex, double profit, int weight, String items) {
+        if (currentIndex < 0 || weight >= sack.getCapacity()) {
+            if (Double.compare(profit, maxBenefit) > 0) finalItems = items;
+            return profit;
         } else {
-            return Math.max(solveTheProblem(sack, currentItem - 1, profit, weight, display),
-                    solveTheProblem(sack, currentItem - 1, profit + items[currentItem].getBenefit()))
+            Item item = sack.getItems()[currentIndex];
+            if (weight + item.getWeight() > sack.getCapacity()) {
+                double ratio = (double)(sack.getCapacity() - weight) / item.getWeight();
+                double benefitToAdd = ratio * item.getBenefit();
+                return Math.max(solveTheProblem(sack, currentIndex - 1, profit + benefitToAdd, sack.getCapacity(),
+                        String.format("Full amounts of items %s\nPartial benefit %.2f, weight %d of item %s",
+                                items, benefitToAdd, (sack.getCapacity() - weight), item)),
+
+                        solveTheProblem(sack, currentIndex - 1, profit, weight, items));
+            } else {
+                return Math.max(solveTheProblem(sack, currentIndex - 1, profit, weight, items),
+                        solveTheProblem(sack, currentIndex - 1, profit + item.getBenefit(),
+                                weight + item.getWeight(), item + items));
+            }
         }
     }
 
