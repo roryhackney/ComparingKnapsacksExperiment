@@ -13,7 +13,10 @@ import java.util.Arrays;
 public class Greedy {
   
   private final double value;
-	
+
+  public Greedy(Knapsack knapsack) {
+	  this.value = solveFractionalKnapsack(knapsack);
+  }
   /**
 	* @param knapsack The knapsack object representing items
 	*/
@@ -44,7 +47,6 @@ public class Greedy {
 				break;
 			}
 		}
-		this.value = totalBenefit;
 		return totalBenefit;
 	}
 
