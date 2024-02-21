@@ -8,6 +8,10 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
+
+        Charts chart = new Charts();
+        chart.showGraph();
+
         Knapsack bag = new Knapsack(1, 5, new Item[]{new Item(3, 3), new Item(2, 2), new Item(1, 1)});
         bag = KnapsackItems.FileReading.readFile("inputs.csv");
         BruteForce x = new BruteForce(bag);

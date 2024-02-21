@@ -21,7 +21,7 @@ public class Dynamic01UnitTest {
         int i = 0;
         for (Knapsack knapsack : knapsacks) {
             long start = System.nanoTime();
-            long benefit = dynamic.GetMaxValue(knapsack.getCapacity(), knapsack.getItems());
+            long benefit = dynamic.GetMaxValue(knapsack);
             long end = System.nanoTime();
 
             System.out.println("Knapsack " + knapsack.getId() + "\t\t Benefit: " + benefit +
@@ -30,7 +30,6 @@ public class Dynamic01UnitTest {
             yAxis.add(end - start);
             i++;
         }
-
 
         return yAxis;
     }

@@ -1,20 +1,22 @@
 package Knapsack01;
 
 import KnapsackItems.Item;
+import KnapsackItems.Knapsack;
 
 import java.util.Arrays;
 
 public class Dynamic {
     /**
-     * Calculates the maximum value that can be obtained by
-     * selecting items for the knapsack without exceeding the
-     * sack capacity.
+     *  Calculates the maximum value that can be obtained by
+     *  selecting items for the knapsack without exceeding the
+     *  sack capacity.
      *
-     * @param sackCapacity  knapsack capacity
-     * @param items         array of items showing the available items
-     * @return              the maximum value that can be obtained
+     * @param knapsack  knapsack capacity
+     * @return  the maximum value that can be obtained
      */
-    public long GetMaxValue(int sackCapacity, Item[] items) {   // int[] weights, int[] values){
+    public long GetMaxValue(Knapsack knapsack) {   // int[] weights, int[] values){
+        int sackCapacity = knapsack.getCapacity();
+        Item[] items = knapsack.getItems();
         int n = items.length;
 
         // store the maximum value at each capacity with different items
@@ -44,8 +46,23 @@ public class Dynamic {
                 // Store the maximum Value
                 matrix[item][capacity] = Math.max(maxValWOCurr, maxValWCurr);
             }
+
         }
+        System.out.println("This is Knapsack number - " + knapsack.getId() + ".");
+        System.out.println("The knapsack's capacity is - " + sackCapacity + ".");
+        System.out.println("These are the following items in the knapsack : ");
+        for(int i = 0; i < items.length; i++) {
+            System.out.println("Item number " + (i + 1) + " has a benefit of " + items[i].getBenefit() + " and a weight of " + items[i] + ".");
+            System.out.printf("Resulting in a value(Benefit/Weight) of : %.3f", (double)items[i].getBenefit()/items[i].getWeight());
+        }
+        System.out.println("\nUsing the Greedy Algorithm resulted in the following items being added into the knapsack:");
+        for(Item item : items) {
+            System.out.println(item);
+        }
+        System.out.println("For a total value of: " + matrix[n][sackCapacity]);
+
         // Return the maximum value for the given sack capacity
         return matrix[n][sackCapacity];
     }
+
 }
