@@ -46,8 +46,6 @@ public class Knapsack {
      */
     public int getId() {return id;}
 
-
-
     @Override
     public String toString() {
         StringBuilder ret = new StringBuilder("ID: ");
@@ -59,10 +57,6 @@ public class Knapsack {
         ret.append("\n");
         return ret.toString();
     }
-
-
-
-
 }
 
 

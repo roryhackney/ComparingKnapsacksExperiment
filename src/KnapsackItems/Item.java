@@ -4,7 +4,7 @@ package KnapsackItems;
  * Represents an Item that can be placed in a Knapsack
  * @author Rory Hackney
  */
-public class Item implements Comparable<Item> { // Added comparable needed for Greedy Algo
+public class Item implements Comparable<Item> { // Added comparable needed for Greedy Algo, compared by value/weight
     /** Benefit of the item which determines the value added if it's placed in a Knapsack */
     private int benefit;
     /** Weight of the item which limits whether it can be placed in a Knapsack */
@@ -22,14 +22,25 @@ public class Item implements Comparable<Item> { // Added comparable needed for G
         this.weight = weight;
     }
 
+    /**
+     * Returns the benefit (profit) for this item
+     * @return the benefit (profit) for this item
+     */
     public int getBenefit() {return benefit;}
+
+    /**
+     * Returns the weight for this item
+     * @return weight for this item
+     */
     public int getWeight() {return weight;}
 
+    @Override
     public String toString() {
         return String.format("(Benefit: %d, Weight: %d)", benefit, weight);
     }
 
     // Added - Comparison for benefit and weight ratio used in Greedy only
+    @Override
     public int compareTo(Item other) {
         double ratioThis = (double) this.benefit / this.weight;
         double ratioOther = (double) other.benefit / other.weight;
