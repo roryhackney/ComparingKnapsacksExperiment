@@ -100,7 +100,7 @@ public class BruteForce {
 
     private double solveTheProblem(Knapsack sack, int currentIndex, double profit, int weight, String items) {
         if (currentIndex < 0 || weight >= sack.getCapacity()) {
-            if (Double.compare(profit, maxBenefit) > 0) finalItems = items;
+            if (Double.compare(profit, this.maxBenefit) > 0) this.finalItems = items;
 //            System.out.println(items);
             return profit;
         } else {
@@ -111,8 +111,8 @@ public class BruteForce {
                 return Math.max(solveTheProblem(sack, currentIndex - 1, profit, weight, items),
 
                         solveTheProblem(sack, currentIndex - 1, profit + benefitToAdd, sack.getCapacity(),
-                        String.format("Full amounts of items %s\nPartial benefit %.2f, weight %d of item %s",
-                                items, benefitToAdd, (sack.getCapacity() - weight), item)));
+                        "Full amounts of items" + items + String.format("\nPartial benefit %.2f, weight %d of item %s",
+                                benefitToAdd, (sack.getCapacity() - weight), item)));
             } else {
                 return Math.max(solveTheProblem(sack, currentIndex - 1, profit, weight, items),
                         solveTheProblem(sack, currentIndex - 1, profit + item.getBenefit(),
