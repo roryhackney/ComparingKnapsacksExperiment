@@ -85,42 +85,34 @@ public class BruteForce {
     private double maxBenefit;
     private String finalItems;
 
-    public BruteForce() {
-        maxBenefit = 0;
-        finalItems = "";
+    public BruteForce(Knapsack knapsack) {
+        solveTheProblem(knapsack);
     }
 
     public double getMaxBenefit() {return maxBenefit;}
 
     public String getFinalItems() {return finalItems;}
 
-    //put it all together
-    //should return 5 with the given main
-    //should somehow return the list of items added, the profit (a String?)
-    //Greedy just returns the benefit so idk
-    //output (in Main.main)
-    //Knapsack #1, Max capacity X
-    //Potential Items
-    //Added Items x, and x/x of item x, for a total profit of x
     public double solveTheProblem(Knapsack sack) {
-        double maxProfit = solveTheProblem(sack, sack.getItems().length - 1, 0, 0, "");
-        return maxProfit;
+        maxBenefit = solveTheProblem(sack, sack.getItems().length - 1, 0.0, 0, "");
+        return maxBenefit;
     }
 
     private double solveTheProblem(Knapsack sack, int currentIndex, double profit, int weight, String items) {
         if (currentIndex < 0 || weight >= sack.getCapacity()) {
-            if (Double.compare(profit, maxBenefit) > 0) finalItems = items;
+            if (Double.compare(profit, this.maxBenefit) > 0) this.finalItems = items;
+//            System.out.println(items);
             return profit;
         } else {
             Item item = sack.getItems()[currentIndex];
             if (weight + item.getWeight() > sack.getCapacity()) {
-                double ratio = (double)(sack.getCapacity() - weight) / item.getWeight();
+                double ratio = ((double)sack.getCapacity() - weight) / item.getWeight();
                 double benefitToAdd = ratio * item.getBenefit();
-                return Math.max(solveTheProblem(sack, currentIndex - 1, profit + benefitToAdd, sack.getCapacity(),
-                        String.format("Full amounts of items %s\nPartial benefit %.2f, weight %d of item %s",
-                                items, benefitToAdd, (sack.getCapacity() - weight), item)),
+                return Math.max(solveTheProblem(sack, currentIndex - 1, profit, weight, items),
 
-                        solveTheProblem(sack, currentIndex - 1, profit, weight, items));
+                        solveTheProblem(sack, currentIndex - 1, profit + benefitToAdd, sack.getCapacity(),
+                        "Full amounts of items" + items + String.format("\nPartial benefit %.2f, weight %d of item %s",
+                                benefitToAdd, (sack.getCapacity() - weight), item)));
             } else {
                 return Math.max(solveTheProblem(sack, currentIndex - 1, profit, weight, items),
                         solveTheProblem(sack, currentIndex - 1, profit + item.getBenefit(),
@@ -128,5 +120,4 @@ public class BruteForce {
             }
         }
     }
-
 }
