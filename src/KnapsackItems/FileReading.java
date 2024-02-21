@@ -1,16 +1,16 @@
 package KnapsackItems;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class FileReading {
+    /** Private constructor to prevent instantiation */
     private FileReading() {}
 
-//    public static void main(String[] args) {
-//        System.out.println(Arrays.toString(readAllFiles()));
-//    }
-
+    /**
+     * Reads all the inputs.csv files and returns an array of Knapsack, one for each file
+     * @return an array of Knapsack, each has a capacity and array of usable Item
+     */
     public static Knapsack[] readAllFiles() {
         Knapsack[] knapsacks = new Knapsack[6];
         knapsacks[0] = readFile("inputs.csv");
@@ -19,6 +19,7 @@ public class FileReading {
         }
         return knapsacks;
     }
+
     /**
      * Reads the given file and returns a Knapsack that can be used for the Knapsack algorithms
      * @param filename the name of the file, e.g. inputs4.csv. File must exist and be readable and be in KnapsackItems/
