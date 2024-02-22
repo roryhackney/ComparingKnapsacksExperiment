@@ -41,14 +41,15 @@ public class Charts {
     public ArrayList<Number> BruteForceFKnapsack() {
         // Reads knapsack instances from files
         Knapsack[] knapsacks = FileReading.readAllFiles();
-        BruteForce bruteforceF = new BruteForce();
+
         double[] xAxis = new double[6];
         ArrayList<Number> yAxis = new ArrayList<Number>();
         int i = 0;
         // Calculates time taken for Dynamic 01
         for(Knapsack knapsack : knapsacks) {
             long start = System.nanoTime();
-            double benefit = bruteforceF.solveTheProblem(knapsack);
+            BruteForce bruteforceF = new BruteForce(knapsack);
+            double benefit = bruteforceF.getMaxBenefit();
             long end = System.nanoTime();
 
             System.out.println("Knapsack "+ knapsack.getId() + "\t\t Items: " + knapsack.getItems().length +
