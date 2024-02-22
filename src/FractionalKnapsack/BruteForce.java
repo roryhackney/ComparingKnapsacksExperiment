@@ -8,7 +8,7 @@ import KnapsackItems.Knapsack;
  * @author Rory Hackney
  */
 public class BruteForce {
-//    private double maxBenefit;
+    private double maxBenefit;
 //    private String finalItems;
 
     /**
@@ -16,8 +16,14 @@ public class BruteForce {
      * @param knapsack the knapsack to solve the problem for, with capacity and array of usable items
      */
     public BruteForce(Knapsack knapsack) {
-        solveTheProblem(knapsack);
+        maxBenefit = solveTheProblem(knapsack);
     }
+
+    /**
+     * Returns the maximum profit for the knapsack most recently solved
+     * @return maximum profit for the most recent knapsack solution
+     */
+    public double getMaxBenefit() {return maxBenefit;}
 
     /**
      * Solves the fractional knapsack problem for the given knapsack
@@ -27,10 +33,10 @@ public class BruteForce {
     public double solveTheProblem(Knapsack sack) {
         return solveTheProblem(sack, 0, 0, sack.getItems().length - 1);
     }
-
     //ok so break items into 100 pieces (1/100 * value, 1/100 * weight)
     //array of length n, to track how many added?
     //add any amount from 0 to 100 then go to next item
+
     //math.max(0, 1, 2, 3, 4...100)
 
     /**
@@ -59,19 +65,13 @@ public class BruteForce {
             return partialAdd;
         }
     }
-
     ////////////////////////////////////////////////////////////////////////////
     //ignore below, had to comment out previous attempts and partial solutions//
+
     ////////////////////////////////////////////////////////////////////////////
 
 
 
-
-//    /**
-//     * Returns the maximum profit for the knapsack most recently solved
-//     * @return maximum profit for the most recent knapsack solution
-//     */
-//    public double getMaxBenefit() {return maxBenefit;}
 
 //    /**
 //     * Returns a String listing the items used for the knapsack most recently solved
