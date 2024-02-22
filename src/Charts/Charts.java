@@ -32,13 +32,13 @@ public class Charts {
         chart.addSeries("Greedy 01", xAxis, yAxis2);
 
         ArrayList<Number> yAxis4 = knapsack01Chart.BruteForce01Knapsack();
-        chart.addSeries("Brute Force 01", xAxis, yAxis4);
+        chart.addSeries("Brute Force 01 * 100", xAxis, yAxis4);
 
         ArrayList<Number> yAxis1 = fractionalChart.GreedyFractionalKnapsack();
         chart.addSeries("Greedy Fractional", xAxis, yAxis1);
 
         ArrayList<Number> yAxis3 = fractionalChart.BruteForceFKnapsack();
-        chart.addSeries("Brute Force Fractional", xAxis, yAxis3);
+        chart.addSeries("Brute Force Fractional * 100", xAxis, yAxis3);
 
 
         // Show Chart

@@ -1,11 +1,17 @@
 package FractionalKnapsack;
 
+import Knapsack01.Charts;
 import KnapsackItems.FileReading;
 import KnapsackItems.Item;
 import KnapsackItems.Knapsack;
 
 public class Main {
     public static void main(String[] args) {
+
+        Charts chart = new Charts();
+        chart.showGraph();
+
+
         //display for fractional package
         System.out.println("-------------------------------");
         Knapsack[] bags = FileReading.readAllFiles();
