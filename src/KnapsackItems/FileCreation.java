@@ -8,11 +8,18 @@ import java.util.Random;
  * @author Rory Hackney
  */
 public class FileCreation {
+    /** Upper bound for weights and values (exclusive)*/
     private static final int MAX = 201;
+    /** Lower bound for weights and values (inclusive) */
     private static final int MIN = 1;
 
+    /** Private constructor to prevent instantiation */
     private FileCreation() {}
 
+    /**
+     * Creates the files inputs4-6.csv
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         int knapsackNum = 4;
         for (int cap = 20; cap <= 30; cap += 5) {
