@@ -6,24 +6,27 @@ import java.util.Arrays;
 
 /**
 * Class implementation of greedy fractional knapsack algorithm
+ * @author rosie
 */
-
-// TODO: Remove knapsack class and item class, getting an error when implementing charts.
-// Looks like algo is created in Constructor, no seperate function was created.
 public class Greedy {
-  
-  private final double value;
+	private final double value;
 
-  public Greedy(Knapsack knapsack) {
+	/**
+	 *
+	 * @param knapsack the knapsack object representing items
+	 */
+	public Greedy(Knapsack knapsack) {
 	  this.value = solveFractionalKnapsack(knapsack);
   }
   /**
 	* @param knapsack The knapsack object representing items
+   * @return the total value obtained by adding items to the knapsack
 	*/
 	public static double solveFractionalKnapsack(Knapsack knapsack) {
 		Item[] items = knapsack.getItems();
 		int capacity = knapsack.getCapacity();
 
+		//sort the items in descending order based on their value-to-weight ratio
 		Arrays.sort(items);
 
 		//Initialize total value to zero
