@@ -8,8 +8,8 @@ import KnapsackItems.Knapsack;
  * @author Rory Hackney
  */
 public class BruteForce {
-    private double maxBenefit;
-    private String finalItems;
+//    private double maxBenefit;
+//    private String finalItems;
 
     /**
      * Solves the fractional knapsack problem for the given knapsack
@@ -20,58 +20,110 @@ public class BruteForce {
     }
 
     /**
-     * Returns the maximum profit for the knapsack most recently solved
-     * @return maximum profit for the most recent knapsack solution
-     */
-    public double getMaxBenefit() {return maxBenefit;}
-
-    /**
-     * Returns a String listing the items used for the knapsack most recently solved
-     * @return a String of the items used for the most recent knapsack solution
-     */
-    public String getFinalItems() {return finalItems;}
-
-    /**
-     * Recursive brute force solution for the fractional knapsack problem
-     * @param sack knapsack to solve the problem for, holding capacity and usable items
-     * @return the total max profit for the knapsack problem
+     * Solves the fractional knapsack problem for the given knapsack
+     * @param sack the knapsack to solve the problem for, with capacity and array of usable items
+     * @return the maximum profit for the given knapsack
      */
     public double solveTheProblem(Knapsack sack) {
-        maxBenefit = solveTheProblem(sack, sack.getItems().length - 1, 0.0, 0, "");
-        return maxBenefit;
+        return solveTheProblem(sack, 0, 0, sack.getItems().length - 1);
     }
+
+    //ok so break items into 100 pieces (1/100 * value, 1/100 * weight)
+    //array of length n, to track how many added?
+    //add any amount from 0 to 100 then go to next item
+    //math.max(0, 1, 2, 3, 4...100)
 
     /**
-     * Private recursive method for the fractional knapsack problem
-     * @param sack knapsack to solve the problem for, holding capacity and usable items
-     * @param currentIndex index of the current item to be considered
-     * @param profit current total profit of the items chosen so far
-     * @param weight current total weight of the items chosen so far
-     * @param items String listing the items chosen so far
-     * @return maximum profit when optimal items are chosen from usable items
+     * Recursively solves the knapsack problem and returns the maximum profit
+     * @param sack the knapsack which has usable items and max capacity
+     * @param weight current weight for this attempt
+     * @param profit current profit for this attempt
+     * @param index index of the item currently being added
+     * @return maximum profit of the knapsack
      */
-    private double solveTheProblem(Knapsack sack, int currentIndex, double profit, int weight, String items) {
-        if (currentIndex < 0 || weight >= sack.getCapacity()) {
-            if (Double.compare(profit, this.maxBenefit) > 0) this.finalItems = items;
-//            System.out.println(items);
+    public double solveTheProblem(Knapsack sack, double weight, double profit, int index) {
+        if (index < 0 || Double.compare(weight, sack.getCapacity()) >= 0) {
             return profit;
         } else {
-            Item item = sack.getItems()[currentIndex];
-            if (weight + item.getWeight() > sack.getCapacity()) {
-                double ratio = (double) (sack.getCapacity() - weight) / item.getWeight();
-                double benefitToAdd = ratio * item.getBenefit();
-                return Math.max(solveTheProblem(sack, currentIndex - 1, profit, weight, items),
-
-                        solveTheProblem(sack, currentIndex - 1, profit + benefitToAdd, sack.getCapacity(),
-                                "Full amounts of items" + items + String.format("\nPartial benefit %.2f, weight %d of item %s",
-                                        benefitToAdd, (sack.getCapacity() - weight), item)));
-            } else {
-                return Math.max(solveTheProblem(sack, currentIndex - 1, profit, weight, items),
-                        solveTheProblem(sack, currentIndex - 1, profit + item.getBenefit(),
-                                weight + item.getWeight(), item + items));
+            Item itemToAdd = sack.getItems()[index];
+            double partialAdd = solveTheProblem(sack, weight, profit, index - 1);
+            for (int amountToAdd = 1; amountToAdd <= 100; amountToAdd++) {
+                double fraction = amountToAdd / 100.0;
+                double weightToAdd = itemToAdd.getWeight() * fraction;
+                if (Double.compare(weightToAdd + weight, sack.getCapacity()) <= 0) {
+                    double profitToAdd = itemToAdd.getBenefit() * fraction;
+                    partialAdd = Math.max(partialAdd,
+                            solveTheProblem(sack, weight + weightToAdd, profit + profitToAdd, index - 1));
+                }
             }
+            return partialAdd;
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////
+    //ignore below, had to comment out previous attempts and partial solutions//
+    ////////////////////////////////////////////////////////////////////////////
+
+
+
+
+//    /**
+//     * Returns the maximum profit for the knapsack most recently solved
+//     * @return maximum profit for the most recent knapsack solution
+//     */
+//    public double getMaxBenefit() {return maxBenefit;}
+
+//    /**
+//     * Returns a String listing the items used for the knapsack most recently solved
+//     * @return a String of the items used for the most recent knapsack solution
+//     */
+//    public String getFinalItems() {return finalItems;}
+
+//    /**
+//     * Recursive brute force solution for the fractional knapsack problem
+//     * @param sack knapsack to solve the problem for, holding capacity and usable items
+//     * @return the total max profit for the knapsack problem
+//     */
+//    public double solveTheProblem(Knapsack sack) {
+//        maxBenefit = solveTheProblem(sack, sack.getItems().length - 1, 0.0, 0, "");
+//        return maxBenefit;
+//    }
+
+//    /**
+//     * Private recursive method for the fractional knapsack problem
+//     * @param sack knapsack to solve the problem for, holding capacity and usable items
+//     * @param currentIndex index of the current item to be considered
+//     * @param profit current total profit of the items chosen so far
+//     * @param weight current total weight of the items chosen so far
+//     * @param items String listing the items chosen so far
+//     * @return maximum profit when optimal items are chosen from usable items
+//     */
+//    private double solveTheProblem(Knapsack sack, int currentIndex, double profit, int weight, String items) {
+//        if (currentIndex < 0 || weight >= sack.getCapacity()) {
+//            if (Double.compare(profit, this.maxBenefit) > 0) this.finalItems = items;
+////            System.out.println(items);
+//            return profit;
+//        } else {
+//            Item item = sack.getItems()[currentIndex];
+//            if (weight + item.getWeight() > sack.getCapacity()) {
+//                double ratio = (double) (sack.getCapacity() - weight) / item.getWeight();
+//                double benefitToAdd = ratio * item.getBenefit();
+//                return Math.max(solveTheProblem(sack, currentIndex - 1, profit, weight, items),
+//
+//                        solveTheProblem(sack, currentIndex - 1, profit + benefitToAdd, sack.getCapacity(),
+//                                "Full amounts of items" + items + String.format("\nPartial benefit %.2f, weight %d of item %s",
+//                                        benefitToAdd, (sack.getCapacity() - weight), item)));
+//            } else {
+//                return Math.max(solveTheProblem(sack, currentIndex - 1, profit, weight, items),
+//                        solveTheProblem(sack, currentIndex - 1, profit + item.getBenefit(),
+//                                weight + item.getWeight(), item + items));
+//            }
+//        }
+//    }
+
+
+
+
 
     //in between methods written while puzzling out solution
 
