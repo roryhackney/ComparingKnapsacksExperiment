@@ -56,14 +56,21 @@ public class Charts {
             long benefit = dynamic.GetMaxValue(knapsack);
             long end = System.nanoTime();
 
-            System.out.println("Knapsack "+ knapsack.getId() + "\t\t Benefit: " + benefit +
-                    "\t\t Items: " + knapsack.getItems().length + "\t\t Time Taken: " + + (end - start) + " ns");
+            System.out.println("Dynamic 01 Knapsack "+ knapsack.getId() + "\t\t Benefit: " + benefit +
+                    "\t\t Items: " + knapsack.getItems().length + "\t\t Time Taken: " + + (end - start)/1000 + " microseconds");
             xAxis[i] = knapsack.getItems().length;
-            yAxis.add(end - start);
+            yAxis.add((end - start)/1000);
             i++;
         }
         return yAxis;
     }
+
+    /**
+     * Calculates and returns the time taken by Brute Force Programming
+     * to solve the knapsack01 problem
+     *
+     * @return an ArrayList containing the time taken for each knapsack
+     */
     public ArrayList<Number> BruteForce01Knapsack() {
         // Reads knapsack instances from files
         Knapsack[] knapsacks = FileReading.readAllFiles();
@@ -78,10 +85,10 @@ public class Charts {
             BruteForce bruteForce = new BruteForce(knapsack);
             long end = System.nanoTime();
 
-            System.out.println("Knapsack "+ knapsack.getId() + "\t\t Benefit: " +
-                    "\t\t Items: " + knapsack.getItems().length + "\t\t Time Taken: " + + (end - start)/1000 + " ns");
+            System.out.println("Brute Force 01 Knapsack "+ knapsack.getId() + "\t\t Items: " + knapsack.getItems().length +
+                    "\t\t Time Taken: " + + (end - start)/1000 + " microseconds");
             xAxis[i] = knapsack.getItems().length;
-            yAxis.add((end - start)/1000);
+            yAxis.add((end - start)/100000);
             i++;
         }
         return yAxis;
@@ -89,6 +96,7 @@ public class Charts {
     /**
      * Calculates and returns the time taken by Greedy Knapsack01 Programming
      * to solve the knapsack problem
+     *
      * @return an ArrayList containing the time taken for each knapsack
      */
     public ArrayList<Number> Greedy01Knapsack() {
@@ -105,10 +113,10 @@ public class Charts {
             Greedy greedyF = new Greedy(knapsack);
             long end = System.nanoTime();
 
-            System.out.println("Knapsack "+ knapsack.getId() + "\t\t Benefit: " +
-                    "\t\t Items: " + knapsack.getItems().length + "\t\t Time Taken: " + (end - start) + " ns");
+            System.out.println("Greedy 01 Knapsack "+ knapsack.getId() + "\t\t Items: " + knapsack.getItems().length +
+                    "\t\t Time Taken: " + (end - start)/1000 + " microseconds");
             xAxis[i] = knapsack.getItems().length;
-            yAxis.add(end - start);
+            yAxis.add((end - start)/1000);
             i++;
         }
         return yAxis;

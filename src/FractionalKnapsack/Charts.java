@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 public class Charts {
     /**
-     * Displays a graph comparing the performance of 5 knapsack algorithms
+     * Displays a graph comparing the performance of Fractional Knapsack algorithms
      */
     public void showGraph(){
         CategoryChart chart = new CategoryChartBuilder().width(1400).height(800).title("Fractional Knapsack Experiment Charts").xAxisTitle("Number Of Items").yAxisTitle("Time Taken").theme(Styler.ChartTheme.GGPlot2).build();
@@ -34,7 +34,7 @@ public class Charts {
     }
 
     /**
-     * Calculates and returns the time taken by Dynamic Programming
+     * Calculates and returns the time taken by Brute Force Programming
      * to solve the knapsack problem
      * @return  an ArrayList containing the time taken for each knapsack
      */
@@ -51,10 +51,10 @@ public class Charts {
             double benefit = bruteforceF.solveTheProblem(knapsack);
             long end = System.nanoTime();
 
-            System.out.println("Knapsack "+ knapsack.getId() + "\t\t Benefit: " + benefit +
-                    "\t\t Items: " + knapsack.getItems().length + "\t\t Time Taken: " + (end - start) + "ns");
+            System.out.println("Knapsack "+ knapsack.getId() + "\t\t Items: " + knapsack.getItems().length +
+                    "\t\t Time Taken: " + (end - start)/1000 + "ms");
             xAxis[i] = knapsack.getItems().length;
-            yAxis.add(end - start);
+            yAxis.add((end - start)/100000);
             i++;
         }
         return yAxis;
@@ -80,10 +80,10 @@ public class Charts {
             Greedy.solveFractionalKnapsack(knapsack);
             long end = System.nanoTime();
 
-            System.out.println("Knapsack "+ knapsack.getId() + "\t\t Benefit: "  +
-                    "\t\t Items: " + knapsack.getItems().length + "\t\t Time Taken: " + (end - start) + "ns");
+            System.out.println("Knapsack "+ knapsack.getId() + "\t\t Items: " + knapsack.getItems().length +
+                    "\t\t Time Taken: " + (end - start)/1000 + "ms");
             xAxis[i] = knapsack.getItems().length;
-            yAxis.add(end - start);
+            yAxis.add((end - start)/1000);
             i++;
         }
         return yAxis;

@@ -106,7 +106,6 @@ public class BruteForce {
         double maxProfit = solveTheProblem(sack, sack.getItems().length - 1, 0, 0, "");
         return maxProfit;
     }
-
     private double solveTheProblem(Knapsack sack, int currentIndex, double profit, int weight, String items) {
         if (currentIndex < 0 || weight >= sack.getCapacity()) {
             if (Double.compare(profit, maxBenefit) > 0) finalItems = items;

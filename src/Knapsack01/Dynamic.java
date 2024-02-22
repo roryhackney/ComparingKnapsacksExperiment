@@ -55,7 +55,7 @@ public class Dynamic {
             System.out.println("Item number " + (i + 1) + " has a benefit of " + items[i].getBenefit() + " and a weight of " + items[i] + ".");
             System.out.printf("Resulting in a value(Benefit/Weight) of : %.3f", (double)items[i].getBenefit()/items[i].getWeight());
         }
-        System.out.println("\nUsing the Greedy Algorithm resulted in the following items being added into the knapsack:");
+        System.out.println("\nUsing the Dynamic 01 Algorithm resulted in the following items being added into the knapsack:");
         for(Item item : items) {
             System.out.println(item);
         }
