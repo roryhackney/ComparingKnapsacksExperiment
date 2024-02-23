@@ -1,5 +1,13 @@
 # Comparing Knapsacks Experiment
 
+Note:
+To run the charts, you need xchart. Download the jar file from https://knowm.org/open-source/XChart/.
+Then, in IntelliJ, go to Project Structure > Libraries
+Click the + icon and search for knowm.xchart, select the most recent version of xchart.
+You should now be able to run the charts.
+
+
+
 Purpose: To practice and demonstrate proficiency in creating brute force, greedy and dynamic programming algorithms for the fractional knapsack problem and the 01 Knapsack problem.
 
 Skills Used: Java programming
