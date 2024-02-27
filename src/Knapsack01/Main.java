@@ -15,9 +15,10 @@ public class Main {
         //display for 01 package
         System.out.println("-------------------------------");
         Knapsack[] bags = FileReading.readAllFiles();
-        for (Knapsack sack: bags) {
-            displayOneKnapsack(sack);
-        }
+        displayOneKnapsack(bags[0]);
+//        for (Knapsack sack: bags) {
+//            displayOneKnapsack(sack);
+//        }
     }
 
     public static void displayOneKnapsack(Knapsack knapsack) {
