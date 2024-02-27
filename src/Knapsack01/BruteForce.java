@@ -68,6 +68,17 @@ public class BruteForce {
                 bestCombo.add(items[index]);
             }
         }
+        System.out.println("\n(BRUTE FORCE) This is Knapsack number : " + knapsack.getId() + ".");
+        System.out.println("The knapsack's capacity is : " + cap + ".");
+        System.out.println("These are the following items available for the knapsack --- ");
+        for(int i = 0; i < items.length; i++) {
+            System.out.println("Item number " + (i + 1) + " has a benefit of " + items[i].getBenefit() + " and a weight of " + items[i].getWeight() + ".");
+        }
+        System.out.println("\nUsing the Brute Force Method resulted in the following items being added into the knapsack:");
+        for(Item item : bestCombo) {
+            System.out.println(item);
+        }
+        System.out.println("For a total value of: " + bestBenefit);
 //        generateCombos(items, cap, 0, new ArrayList<>());
     }
 //

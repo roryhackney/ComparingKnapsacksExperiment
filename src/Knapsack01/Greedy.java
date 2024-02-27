@@ -38,18 +38,18 @@ public class Greedy {
                 break;
             }
         }
-//        System.out.println("This is Knapsack number - " + knapsack.getId() + ".");
-//        System.out.println("The knapsack's capacity is - " + cap + ".");
-//        System.out.println("These are the following items in the knapsack : ");
-//        for(int i = 0; i < items.length; i++) {
-//            System.out.println("Item number " + (i + 1) + " has a benefit of " + items[i].getBenefit() + " and a weight of " + items[i] + ".");
-//            System.out.printf("Resulting in a value(Benefit/Weight) of : %.3f", (double)items[i].getBenefit()/items[i].getWeight());
-//        }
-//        System.out.println("\nUsing the Greedy Algorithm resulted in the following items being added into the knapsack:");
-//        for(Item item : combo) {
-//            System.out.println(item);
-//        }
-//        System.out.println("For a total value of: " + totalBenefit);
+        System.out.println("\n(GREEDY METHOD) This is Knapsack number : " + knapsack.getId() + ".");
+        System.out.println("The knapsack's capacity is : " + cap + ".");
+        System.out.println("These are the following items available for the knapsack --- ");
+        for(int i = 0; i < items.length; i++) {
+            System.out.println("Item number " + (i + 1) + " has a benefit of " + items[i].getBenefit() + " and a weight of " + items[i].getWeight() + ".");
+            System.out.printf("Resulting in a value(Benefit/Weight) of : %.3f\n", (double)items[i].getBenefit()/items[i].getWeight());
+        }
+        System.out.println("\nUsing the Greedy Algorithm resulted in the following items being added into the knapsack:");
+        for(Item item : bestCombo) {
+            System.out.println(item);
+        }
+        System.out.println("For a total value of: " + bestBenefit);
     }
 
     /**
