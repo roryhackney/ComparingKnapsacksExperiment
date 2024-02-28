@@ -2,7 +2,6 @@ package Knapsack01;
 import KnapsackItems.Item;
 import KnapsackItems.Knapsack;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
