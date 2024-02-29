@@ -87,11 +87,9 @@ public class BruteForce {
                 System.arraycopy(itemInKnapsack, 0, currentCombo, 0, itemInKnapsack.length);
             }
         } else {
-            // Include the current item
             itemInKnapsack[currentIndex] = 1;
             generateCombinations(items, capacity, currentIndex + 1, currentCombo, weights, benefits, itemInKnapsack);
 
-            // Exclude the current item
             itemInKnapsack[currentIndex] = 0;
             generateCombinations(items, capacity, currentIndex + 1, currentCombo, weights, benefits, itemInKnapsack);
         }
